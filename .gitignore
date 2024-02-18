@@ -1,0 +1,5 @@
+env
+scraper/__pycache__
+trabalhabrasil/__pycache__
+utils/__pycache__
+geckodriver.log
