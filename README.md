@@ -16,7 +16,7 @@ Realiza candidaturas nos resultados de uma busca dado as keywords e a localizaç
 ```
 - O seu cpf deve ser passado com somente os números
 - A sua data de nascimento deve ser passada com somente os números
-- location deve ser passada como no formato acima, cidade sigla, como em: rio de janeiro rj, são paulo sp, rio grande do sul rj
+- location deve ser passada como no formato acima, cidade sigla, como em: rio de janeiro rj, são paulo sp, rio grande do sul rs
 
 ## Observações
 É possível que o firefox use muita memória, então cuidado se o seu computador tiver pouca memória
