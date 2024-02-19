@@ -17,6 +17,18 @@ class TrabalhaBrasil:
         self._cpf = cpf
         self._data_nascimento = data_nascimento
 
+        self._is_logged = False
+
+        self.restart()
+    
+    @property
+    def is_logged(self):
+        return self._is_logged
+
+    def restart(self):
+        if self.is_logged:
+            self.quit()
+
         options = FirefoxOptions()
         options.add_argument("--start-maximized")
         options.add_argument("--disable-infobars")
@@ -48,6 +60,7 @@ class TrabalhaBrasil:
                 nome = get_by_xpath_to_click(self._driver, NOME_XPATH, 5)
                 nome.click()
 
+                self._is_logged = True
                 sleep(5)
                 break
             except Exception as ex:
@@ -55,6 +68,7 @@ class TrabalhaBrasil:
 
     def quit(self):
         self._driver.quit()
+        self._is_logged = False
 
     def countSearchPages(self, keywords, location = None):
         try:
@@ -66,8 +80,10 @@ class TrabalhaBrasil:
 
     def search(self, keywords, page, location = None):
         try:
+            print(f'searching on page {page}')
+
             url = self._SEARCH_URL.format('', '', keywords) if location is None else self._SEARCH_URL.format('-em-', location.replace(' ', '-'), keywords)
-            url += f'?pagina={page}' 
+            url += f'?pagina={page}'
 
             self._driver.get(url)
 

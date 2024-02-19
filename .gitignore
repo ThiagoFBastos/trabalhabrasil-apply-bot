@@ -3,3 +3,5 @@ scraper/__pycache__
 trabalhabrasil/__pycache__
 utils/__pycache__
 geckodriver.log
+local_params.json
+models/history

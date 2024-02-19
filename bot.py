@@ -5,54 +5,75 @@ import json
 import time
 import logging
 import sqlite3
+import sys
 
-try:
-    logging.basicConfig(level = logging.ERROR, filename = 'logs/bot.log', format = "%(asctime)s - %(levelname)s - %(message)s")
+def main():
+    try:
+        MAX_SECONDS_RESTART = 20 * 60
 
-    con = sqlite3.connect("models/history")
-    
-    cur = con.cursor()
+        logging.basicConfig(level = logging.ERROR, filename = 'logs/bot.log', format = "%(asctime)s - %(levelname)s - %(message)s")
 
-    cur.execute("""CREATE TABLE IF NOT EXISTS history (
-        id INTEGER PRIMARY KEY,
-        url VARCHAR(512) NOT NULL UNIQUE,
-        visited DATETIME DEFAULT CURRENT_TIMESTAMP
-    );""")
+        con = sqlite3.connect("models/history")
+        
+        cur = con.cursor()
 
-    with open('params.json', 'r') as f:
-        params = json.load(f)
+        cur.execute("""CREATE TABLE IF NOT EXISTS history (
+            id INTEGER PRIMARY KEY,
+            url VARCHAR(512) NOT NULL UNIQUE,
+            visited DATETIME DEFAULT CURRENT_TIMESTAMP
+        );""")
 
-    cpf = params.get('cpf')
-    data_nascimento = params.get('data_nascimento')
-    keywords = params.get('keywords')
-    location = params.get('location')
+        if sys.argv[-1] == 'LOCAL':
+            input_file = 'local_params.json'
+        else:
+            input_file = 'params.json'
 
-    bot = TrabalhaBrasil(cpf, data_nascimento)
+        with open(input_file, 'r') as f:
+            params = json.load(f)
 
-    bot.login()
+        cpf = params.get('cpf')
+        data_nascimento = params.get('data_nascimento')
+        keywords = params.get('keywords')
+        location = params.get('location')
 
-    countPages = bot.countSearchPages(keywords, location)
+        bot = TrabalhaBrasil(cpf, data_nascimento)
 
-    for page in range(1, countPages + 1):
-        jobs = bot.search(keywords, page, location)
+        bot.login()
 
-        for job in jobs:
-            cur.execute("SELECT 1 from history WHERE url = ?", (job, ))
+        countPages = bot.countSearchPages(keywords, location)
 
-            results = cur.fetchall()
+        last_time = time.time()
 
-            if len(results):
-                continue
+        for page in range(1, countPages + 1):
+            jobs = bot.search(keywords, page, location)
 
-            if bot.apply(job):
-                cur.execute("INSERT INTO history(id, url) VALUES (NULL, ?)", (job, ))
-            
-            time.sleep(1)
+            for job in jobs:
+                
+                cur_time = time.time()
 
-except Exception as ex:
-    logging.error(f'error when execute bot: {ex}')
+                if cur_time - last_time >= MAX_SECONDS_RESTART:
+                    print('RESTART')
+                    bot.restart()
+                    last_time = cur_time
+                    
+                cur.execute("SELECT 1 from history WHERE url = ?", (job, ))
 
-finally:
-    bot.quit()
-    con.commit()
-    con.close()
+                results = cur.fetchall()
+
+                if len(results):
+                    print(f'o {job} já está no histórico de candidaturas')
+                    continue
+
+                if bot.apply(job):
+                    cur.execute("INSERT INTO history(id, url) VALUES (NULL, ?)", (job, ))
+
+    except Exception as ex:
+        logging.error(f'error when running bot: {ex}')
+
+    finally:
+        bot.quit()
+        con.commit()
+        con.close()
+
+if __name__ == '__main__':
+    main()
