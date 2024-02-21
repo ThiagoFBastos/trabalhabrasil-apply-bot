@@ -9,7 +9,6 @@ Realiza candidaturas nos resultados de uma busca dado as keywords e a localizaç
 2. insira no terminal: source ./env/bin/activate ou \env\Scripts\activate no windows
 3. insira no terminal: pip install -r requirements.txt
 
-
 ## Instruções
 1. Passe as informações no arquivo params.json como veja o exemplo:
 ```

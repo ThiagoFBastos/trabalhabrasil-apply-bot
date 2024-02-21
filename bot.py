@@ -9,7 +9,7 @@ import sys
 
 def main():
     try:
-        MAX_SECONDS_RESTART = 20 * 60
+        MAX_SECONDS_RESTART = 5 * 60
 
         logging.basicConfig(level = logging.ERROR, filename = 'logs/bot.log', format = "%(asctime)s - %(levelname)s - %(message)s")
 
@@ -18,7 +18,7 @@ def main():
         cur = con.cursor()
 
         cur.execute("""CREATE TABLE IF NOT EXISTS history (
-            id INTEGER PRIMARY KEY,
+            i4d INTEGER PRIMARY KEY,
             url VARCHAR(512) NOT NULL UNIQUE,
             visited DATETIME DEFAULT CURRENT_TIMESTAMP
         );""")
@@ -41,6 +41,8 @@ def main():
         bot.login()
 
         countPages = bot.countSearchPages(keywords, location)
+    
+        print(f'foram encontradas {countPages} páginas')
 
         last_time = time.time()
 
