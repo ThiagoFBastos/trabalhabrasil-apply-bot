@@ -5,6 +5,9 @@ from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from time import sleep
 from scraper import TrabalhaBrasilScraper
 import logging
+import os
+import os.path
+import pickle
 
 class TrabalhaBrasilBOT:
 
@@ -18,8 +21,19 @@ class TrabalhaBrasilBOT:
 
         self._is_logged = False
 
+        self.removeCookies()
+
         self.restart()
-    
+
+    def removeCookies(self):
+        cookie_filename = f'cookies/{self._cpf}.pkl'
+
+        if not os.path.isdir('cookies'):
+            os.mkdir('cookies')
+
+        if os.path.isfile(cookie_filename):
+            os.remove(cookie_filename)
+
     @property
     def is_logged(self):
         return self._is_logged
@@ -36,7 +50,7 @@ class TrabalhaBrasilBOT:
         options.add_argument('--disable-application-cache')
         options.add_argument('--disable-gpu')
         options.add_argument("--disable-dev-shm-usage")
-        #options.add_argument("--headless")
+        options.add_argument("--headless")
 
         self._driver = webdriver.Firefox(service = FirefoxService(GeckoDriverManager().install()), options = options)
     
@@ -45,27 +59,41 @@ class TrabalhaBrasilBOT:
         self.login()
 
     def login(self):
-        while True:
-            try:
-                if self._driver.current_url != self._LOGIN_URL:
-                    self._driver.get(self._LOGIN_URL)
+        cookie_filename = f'cookies/{self._cpf}.pkl'
 
-                cpf = self._scraper.get_login_cpf_input()
-                cpf.send_keys(self._cpf)
+        if os.path.isfile(cookie_filename):
+            self._driver.get(self._BASE_URL)
+            with open(cookie_filename, 'rb') as f:
+                cookies = pickle.load(f)
+                for cookie in cookies:
+                    self._driver.add_cookie(cookie)
+        else:
+            while True:
+                try:
+                    if self._driver.current_url != self._LOGIN_URL:
+                        self._driver.get(self._LOGIN_URL)
 
-                birthday = self._scraper.get_login_birthday_input()
-                birthday.send_keys(self._data_nascimento)
+                    cpf = self._scraper.get_login_cpf_input()
+                    cpf.send_keys(self._cpf)
 
-                name = self._scraper.get_login_name_input()
-                name.click()
+                    birthday = self._scraper.get_login_birthday_input()
+                    birthday.send_keys(self._data_nascimento)
 
-                self._is_logged = True
+                    name = self._scraper.get_login_name_input()
+                    name.click()
 
-                sleep(5)
+                    sleep(5)
 
-                break
-            except Exception as ex:
-                logging.error(f'error when trying to login: {ex}')
+                    break
+                except Exception as ex:
+                    logging.error(f'error when trying to login: {ex}')
+
+            cookies = self._driver.get_cookies()
+
+            with open(cookie_filename, 'wb') as f:
+                pickle.dump(cookies, f)
+
+        self._is_logged = True
 
     def quit(self):
         self._driver.quit()
@@ -98,7 +126,7 @@ class TrabalhaBrasilBOT:
 
     def apply(self, url):
         try:
-            print(f'trying aplly for {url}')
+            print(f'trying apply for {url}')
 
             self._driver.get(url)
 

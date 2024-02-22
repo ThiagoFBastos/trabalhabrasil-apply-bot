@@ -1,2 +1,16 @@
-2024-02-21 21:54:46,365 - ERROR - error when running bot: table history has no column named id
-2024-02-21 21:57:15,958 - ERROR - error when running bot: table history has no column named id
+2024-02-22 01:02:53,342 - ERROR - error when running bot: Message: Failed to read marionette port
+
+2024-02-22 10:41:32,687 - ERROR - error when running bot: Message: Browsing context has been discarded
+Stacktrace:
+RemoteError@chrome://remote/content/shared/RemoteError.sys.mjs:8:8
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:191:5
+NoSuchWindowError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:662:5
+assert.that/<@chrome://remote/content/shared/webdriver/Assert.sys.mjs:485:13
+assert.open@chrome://remote/content/shared/webdriver/Assert.sys.mjs:147:4
+GeckoDriver.prototype.addCookie@chrome://remote/content/marionette/driver.sys.mjs:2113:15
+despatch@chrome://remote/content/marionette/server.sys.mjs:318:40
+execute@chrome://remote/content/marionette/server.sys.mjs:289:16
+onPacket/<@chrome://remote/content/marionette/server.sys.mjs:262:20
+onPacket@chrome://remote/content/marionette/server.sys.mjs:263:9
+_onJSONObjectReady/<@chrome://remote/content/marionette/transport.sys.mjs:494:20
+
