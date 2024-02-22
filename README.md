@@ -3,6 +3,7 @@ Realiza candidaturas nos resultados de uma busca dado as keywords e a localizaç
 
 ## Requisitos
 - Mozilla Firefox
+- Sqlite3
 
 ## Instalação
 1. insira no terminal: python3 -m venv env
