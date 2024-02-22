@@ -3,11 +3,10 @@ from selenium.webdriver.firefox.service import Service as FirefoxService
 from webdriver_manager.firefox import GeckoDriverManager
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from time import sleep
-import scraper
-from utils.selenium import get_by_xpath, get_by_xpath_to_click
+from scraper import TrabalhaBrasilScraper
 import logging
 
-class TrabalhaBrasil:
+class TrabalhaBrasilBOT:
 
     def __init__(self, cpf, data_nascimento):
         self._BASE_URL = 'https://www.trabalhabrasil.com.br'
@@ -40,28 +39,30 @@ class TrabalhaBrasil:
         options.add_argument("--headless")
 
         self._driver = webdriver.Firefox(service = FirefoxService(GeckoDriverManager().install()), options = options)
+    
+        self._scraper = TrabalhaBrasilScraper(self._driver)
+
+        self.login()
 
     def login(self):
-        CPF_XPATH = "//*[@id = 'txtLoginCPF']"
-        DATA_NASCIMENTO_XPATH = "//*[@id = 'txtLoginNascimento']"
-        NOME_XPATH = "//*[@id = 'txtLoginName']"
-
         while True:
             try:
                 if self._driver.current_url != self._LOGIN_URL:
                     self._driver.get(self._LOGIN_URL)
 
-                cpf = get_by_xpath(self._driver, CPF_XPATH, 5)                
+                cpf = self._scraper.get_login_cpf_input()
                 cpf.send_keys(self._cpf)
 
-                data_nascimento = get_by_xpath(self._driver, DATA_NASCIMENTO_XPATH, 5)
-                data_nascimento.send_keys(self._data_nascimento)
+                birthday = self._scraper.get_login_birthday_input()
+                birthday.send_keys(self._data_nascimento)
 
-                nome = get_by_xpath_to_click(self._driver, NOME_XPATH, 5)
-                nome.click()
+                name = self._scraper.get_login_name_input()
+                name.click()
 
                 self._is_logged = True
+
                 sleep(5)
+
                 break
             except Exception as ex:
                 logging.error(f'error when trying to login: {ex}')
@@ -73,8 +74,7 @@ class TrabalhaBrasil:
     def countSearchPages(self, keywords, location = None):
         try:
             self.search(keywords, 1, location)
-            page_source = self._driver.page_source
-            return scraper.get_last_page_from_page_source(page_source)
+            return self._scraper.get_last_page_from_page_source()
         except Exception as ex:
             logging.error(f'error when search for jobs: {ex}')
 
@@ -87,8 +87,7 @@ class TrabalhaBrasil:
 
             self._driver.get(url)
 
-            page_source = self._driver.page_source
-            links = scraper.get_jobs_links_from_page_source(page_source)
+            links = self._scraper.get_jobs_links_from_page_source()
             links = list(map(lambda href: f'{self._BASE_URL}{href}', links))
 
             return links
@@ -101,20 +100,16 @@ class TrabalhaBrasil:
         try:
             print(f'trying aplly for {url}')
 
-            BOX_ACTION_XPATH = "//div[@class = 'boxAction']"
-            APPLY_BUTTON_XPATH = "./button"
-
             self._driver.get(url)
 
-            boxAction = get_by_xpath(self._driver, BOX_ACTION_XPATH, 5)
-            button = get_by_xpath_to_click(boxAction, APPLY_BUTTON_XPATH, 5)
+            apply_button = self._scraper.get_apply_button()
 
-            if button is not None:
-                buttonClass = button.get_attribute('class')
-                if 'disabled' not in buttonClass:
-                    button.click()
+            if apply_button is not None:
+                button_class = apply_button.get_attribute('class')
+                if 'disabled' not in button_class:
+                    apply_button.click()
                     return True
-                else:
-                    return False
         except Exception as ex:
             logging.error(f'error when apply for job: {ex}')
+
+        return False

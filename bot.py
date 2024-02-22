@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from trabalhabrasil import TrabalhaBrasil
+from trabalhabrasil import TrabalhaBrasilBOT
 import json
 import time
 import logging
@@ -36,9 +36,7 @@ def main():
         keywords = params.get('keywords')
         location = params.get('location')
 
-        bot = TrabalhaBrasil(cpf, data_nascimento)
-
-        bot.login()
+        bot = TrabalhaBrasilBOT(cpf, data_nascimento)
 
         countPages = bot.countSearchPages(keywords, location)
     
