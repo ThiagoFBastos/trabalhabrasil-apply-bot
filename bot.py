@@ -18,7 +18,7 @@ def main():
         cur = con.cursor()
 
         cur.execute("""CREATE TABLE IF NOT EXISTS history (
-            i4d INTEGER PRIMARY KEY,
+            id INTEGER PRIMARY KEY,
             url VARCHAR(512) NOT NULL UNIQUE,
             visited DATETIME DEFAULT CURRENT_TIMESTAMP
         );""")

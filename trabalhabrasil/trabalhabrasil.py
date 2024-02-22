@@ -36,7 +36,7 @@ class TrabalhaBrasilBOT:
         options.add_argument('--disable-application-cache')
         options.add_argument('--disable-gpu')
         options.add_argument("--disable-dev-shm-usage")
-        options.add_argument("--headless")
+        #options.add_argument("--headless")
 
         self._driver = webdriver.Firefox(service = FirefoxService(GeckoDriverManager().install()), options = options)
     
