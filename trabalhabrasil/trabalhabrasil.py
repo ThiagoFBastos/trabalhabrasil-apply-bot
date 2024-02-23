@@ -8,16 +8,19 @@ import logging
 import os
 import os.path
 import pickle
+from urllib.parse import urlencode
 
 class TrabalhaBrasilBOT:
 
-    def __init__(self, cpf, data_nascimento):
+    def __init__(self, cpf, data_nascimento, home_office = False, ordenacao = 1):
         self._BASE_URL = 'https://www.trabalhabrasil.com.br'
         self._LOGIN_URL = f'{self._BASE_URL}/Login?tipoPerfil=Candidato'
         self._SEARCH_URL = f'{self._BASE_URL}/vagas-empregos' + '{}{}/{}'
 
         self._cpf = cpf
         self._data_nascimento = data_nascimento
+        self._home_office = home_office
+        self._ordenacao = ordenacao
 
         self._is_logged = False
 
@@ -110,8 +113,17 @@ class TrabalhaBrasilBOT:
         try:
             print(f'searching on page {page}')
 
+            params = {
+                'pagina': page,
+                'ordenacao': self._ordenacao
+            }
+
+            if self._home_office:
+                params['fh'] = 'home-office'
+
             url = self._SEARCH_URL.format('', '', keywords) if location is None else self._SEARCH_URL.format('-em-', location.replace(' ', '-'), keywords)
-            url += f'?pagina={page}'
+            url += '?'
+            url += urlencode(params)
 
             self._driver.get(url)
 

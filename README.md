@@ -17,12 +17,16 @@ Realiza candidaturas nos resultados de uma busca dado as keywords e a localizaç
     "cpf": "01234567890",
     "data_nascimento": "01012001",
     "keywords": "programador",
-    "location": "rio de janeiro rj"
+    "location": "rio de janeiro rj",
+    "home-office": false,
+    "ordenacao": 1
 }
 ```
 - O seu cpf deve ser passado com somente os números
 - A sua data de nascimento deve ser passada com somente os números
-- location deve ser passada como no formato acima, cidade sigla, como em: rio de janeiro rj, são paulo sp, rio grande do sul rs
+- location deve ser passada como no formato acima, [cidade] [sigla do estado], como em: rio de janeiro rj, são paulo sp, duque de caxias rj. Se não quiser passar uma localização, basta tirar o campo location do params.json 
+- home-office é true quando as vagas a serem procuradas são somente em home office e false caso contrário
+- ordenacao: 1 se for sem filtro, 2 se for ordenado pelas últimas vagas e 3 se for pelos maiores salários
 
 ## Observações
 - É possível que o firefox use muita memória, então cuidado se o seu computador tiver pouca memória, eu reinicio o webdriver de tempos em tempos para diminuir o consumo de memória.

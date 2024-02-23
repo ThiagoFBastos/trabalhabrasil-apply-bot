@@ -14,7 +14,7 @@ def main():
         logging.basicConfig(level = logging.ERROR, filename = 'logs/bot.log', format = "%(asctime)s - %(levelname)s - %(message)s")
 
         con = sqlite3.connect("models/history")
-        
+
         cur = con.cursor()
 
         cur.execute("""CREATE TABLE IF NOT EXISTS history (
@@ -35,8 +35,10 @@ def main():
         data_nascimento = params.get('data_nascimento')
         keywords = params.get('keywords')
         location = params.get('location')
+        home_office = params.get('home-office')
+        ordenacao = params.get('ordenacao')
 
-        bot = TrabalhaBrasilBOT(cpf, data_nascimento)
+        bot = TrabalhaBrasilBOT(cpf, data_nascimento, home_office = home_office, ordenacao = ordenacao)
 
         countPages = bot.countSearchPages(keywords, location)
     
