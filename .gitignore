@@ -7,3 +7,4 @@ local_params.json
 models/history
 models/history-journal
 cookies
+logs/bot.log

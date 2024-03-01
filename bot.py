@@ -43,8 +43,10 @@ def main():
         countPages = bot.countSearchPages(keywords, location)
     
         print(f'foram encontradas {countPages} páginas')
-
+        
         last_time = time.time()
+
+        collected = []
 
         for page in range(1, countPages + 1):
             jobs = bot.search(keywords, page, location)

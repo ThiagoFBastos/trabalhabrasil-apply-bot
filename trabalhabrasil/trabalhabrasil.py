@@ -103,38 +103,39 @@ class TrabalhaBrasilBOT:
         self._is_logged = False
 
     def countSearchPages(self, keywords, location = None):
-        try:
-            self.search(keywords, 1, location)
-            return self._scraper.get_last_page_from_page_source()
-        except Exception as ex:
-            logging.error(f'error when search for jobs: {ex}')
+        params = {
+            'pagina': 1,
+            'ordenacao': self._ordenacao
+        }
+
+        if self._home_office:
+            params['fh'] = 'home-office'
+
+        url = self._SEARCH_URL.format('', '', keywords) if location is None else self._SEARCH_URL.format('-em-', location.replace(' ', '-'), keywords)
+        url += '?'
+        url += urlencode(params)
+
+        return self._scraper.get_last_page_from_page_source(url)
 
     def search(self, keywords, page, location = None):
-        try:
-            print(f'searching on page {page}')
+        print(f'searching on page {page}')
 
-            params = {
-                'pagina': page,
-                'ordenacao': self._ordenacao
-            }
+        params = {
+            'pagina': page,
+            'ordenacao': self._ordenacao
+        }
 
-            if self._home_office:
-                params['fh'] = 'home-office'
+        if self._home_office:
+            params['fh'] = 'home-office'
 
-            url = self._SEARCH_URL.format('', '', keywords) if location is None else self._SEARCH_URL.format('-em-', location.replace(' ', '-'), keywords)
-            url += '?'
-            url += urlencode(params)
+        url = self._SEARCH_URL.format('', '', keywords) if location is None else self._SEARCH_URL.format('-em-', location.replace(' ', '-'), keywords)
+        url += '?'
+        url += urlencode(params)
 
-            self._driver.get(url)
+        links = self._scraper.get_jobs_links_from_page_source(url)
+        links = list(map(lambda href: f'{self._BASE_URL}{href}', links))
 
-            links = self._scraper.get_jobs_links_from_page_source()
-            links = list(map(lambda href: f'{self._BASE_URL}{href}', links))
-
-            return links
-        except Exception as ex:
-            logging.error(f'error when search for jobs: {ex}')
-
-        return []
+        return links
 
     def apply(self, url):
         try:

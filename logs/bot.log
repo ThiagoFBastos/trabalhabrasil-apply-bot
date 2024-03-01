@@ -1,0 +1,112 @@
+2024-02-29 20:09:21,559 - ERROR - error when finding element by xpath: Message: 
+
+2024-02-29 20:09:28,903 - ERROR - error when finding element by xpath: Message: 
+Stacktrace:
+RemoteError@chrome://remote/content/shared/RemoteError.sys.mjs:8:8
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:191:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:509:5
+dom.find/</<@chrome://remote/content/shared/DOM.sys.mjs:136:16
+
+2024-02-29 20:09:28,903 - ERROR - error when finding element by xpath: 'NoneType' object has no attribute 'find_element'
+2024-02-29 20:12:02,407 - ERROR - error when finding element by xpath: Message: 
+
+2024-02-29 20:14:24,949 - ERROR - error when finding element by xpath: Message: 
+Stacktrace:
+RemoteError@chrome://remote/content/shared/RemoteError.sys.mjs:8:8
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:191:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:509:5
+dom.find/</<@chrome://remote/content/shared/DOM.sys.mjs:136:16
+
+2024-02-29 20:14:24,961 - ERROR - error when finding element by xpath: 'NoneType' object has no attribute 'find_element'
+2024-02-29 20:14:31,382 - ERROR - error when finding element by xpath: Message: 
+Stacktrace:
+RemoteError@chrome://remote/content/shared/RemoteError.sys.mjs:8:8
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:191:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:509:5
+dom.find/</<@chrome://remote/content/shared/DOM.sys.mjs:136:16
+
+2024-02-29 20:14:31,382 - ERROR - error when finding element by xpath: 'NoneType' object has no attribute 'find_element'
+2024-02-29 20:14:38,081 - ERROR - error when finding element by xpath: Message: 
+Stacktrace:
+RemoteError@chrome://remote/content/shared/RemoteError.sys.mjs:8:8
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:191:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:509:5
+dom.find/</<@chrome://remote/content/shared/DOM.sys.mjs:136:16
+
+2024-02-29 20:14:38,081 - ERROR - error when finding element by xpath: 'NoneType' object has no attribute 'find_element'
+2024-02-29 20:15:05,630 - ERROR - error when finding element by xpath: Message: 
+Stacktrace:
+RemoteError@chrome://remote/content/shared/RemoteError.sys.mjs:8:8
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:191:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:509:5
+dom.find/</<@chrome://remote/content/shared/DOM.sys.mjs:136:16
+
+2024-02-29 20:15:05,630 - ERROR - error when finding element by xpath: 'NoneType' object has no attribute 'find_element'
+2024-02-29 20:15:59,507 - ERROR - error when finding element by xpath: Message: 
+Stacktrace:
+RemoteError@chrome://remote/content/shared/RemoteError.sys.mjs:8:8
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:191:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:509:5
+dom.find/</<@chrome://remote/content/shared/DOM.sys.mjs:136:16
+
+2024-02-29 20:15:59,507 - ERROR - error when finding element by xpath: 'NoneType' object has no attribute 'find_element'
+2024-02-29 21:18:52,186 - ERROR - error when finding element by xpath: Message: 
+Stacktrace:
+RemoteError@chrome://remote/content/shared/RemoteError.sys.mjs:8:8
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:191:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:509:5
+dom.find/</<@chrome://remote/content/shared/DOM.sys.mjs:136:16
+
+2024-02-29 21:18:52,209 - ERROR - error when finding element by xpath: 'NoneType' object has no attribute 'find_element'
+2024-02-29 21:18:59,542 - ERROR - error when finding element by xpath: Message: 
+Stacktrace:
+RemoteError@chrome://remote/content/shared/RemoteError.sys.mjs:8:8
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:191:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:509:5
+dom.find/</<@chrome://remote/content/shared/DOM.sys.mjs:136:16
+
+2024-02-29 21:18:59,542 - ERROR - error when finding element by xpath: 'NoneType' object has no attribute 'find_element'
+2024-02-29 21:19:05,988 - ERROR - error when finding element by xpath: Message: 
+Stacktrace:
+RemoteError@chrome://remote/content/shared/RemoteError.sys.mjs:8:8
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:191:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:509:5
+dom.find/</<@chrome://remote/content/shared/DOM.sys.mjs:136:16
+
+2024-02-29 21:19:05,988 - ERROR - error when finding element by xpath: 'NoneType' object has no attribute 'find_element'
+2024-02-29 21:19:18,229 - ERROR - error when finding element by xpath: Message: 
+Stacktrace:
+RemoteError@chrome://remote/content/shared/RemoteError.sys.mjs:8:8
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:191:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:509:5
+dom.find/</<@chrome://remote/content/shared/DOM.sys.mjs:136:16
+
+2024-02-29 21:19:18,229 - ERROR - error when finding element by xpath: 'NoneType' object has no attribute 'find_element'
+2024-02-29 21:19:24,712 - ERROR - error when finding element by xpath: Message: 
+Stacktrace:
+RemoteError@chrome://remote/content/shared/RemoteError.sys.mjs:8:8
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:191:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:509:5
+dom.find/</<@chrome://remote/content/shared/DOM.sys.mjs:136:16
+
+2024-02-29 21:19:24,712 - ERROR - error when finding element by xpath: 'NoneType' object has no attribute 'find_element'
+2024-02-29 21:19:31,648 - ERROR - error when finding element by xpath: Message: 
+Stacktrace:
+RemoteError@chrome://remote/content/shared/RemoteError.sys.mjs:8:8
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:191:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:509:5
+dom.find/</<@chrome://remote/content/shared/DOM.sys.mjs:136:16
+
+2024-02-29 21:19:31,649 - ERROR - error when finding element by xpath: 'NoneType' object has no attribute 'find_element'
+2024-02-29 21:19:38,154 - ERROR - error when finding element by xpath: Message: 
+Stacktrace:
+RemoteError@chrome://remote/content/shared/RemoteError.sys.mjs:8:8
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:191:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:509:5
+dom.find/</<@chrome://remote/content/shared/DOM.sys.mjs:136:16
+
+2024-02-29 21:19:38,154 - ERROR - error when finding element by xpath: 'NoneType' object has no attribute 'find_element'
+2024-02-29 21:19:58,164 - ERROR - error when finding element by xpath: Message: 
+
+2024-02-29 21:22:09,309 - ERROR - error when finding element by xpath: Message: 
+

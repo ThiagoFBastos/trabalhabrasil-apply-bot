@@ -1,15 +1,18 @@
 from bs4 import BeautifulSoup
 import logging
 from utils.selenium import get_by_xpath, get_by_xpath_to_click
+from fake_useragent import UserAgent
+import requests
 
 class TrabalhaBrasilScraper:
 
     def __init__(self, driver):
         self._driver = driver
 
-    def get_jobs_links_from_page_source(self):
+    def get_jobs_links_from_page_source(self, url):
         try:
-            page_source = self._driver.page_source
+            ua = UserAgent()
+            page_source = requests.get(url, headers = {'User-Agent': ua.firefox}).text
             soup = BeautifulSoup(page_source, 'html.parser')
             nav = soup.find('nav', attrs = {'id': 'jobs-wrapper'})
             aCollection = nav.find_all('a')
@@ -19,9 +22,10 @@ class TrabalhaBrasilScraper:
             logging.error(f'error when extract links of jobs: {ex}')
         return []
 
-    def get_last_page_from_page_source(self):
+    def get_last_page_from_page_source(self, url):
         try:
-            page_source = self._driver.page_source
+            ua = UserAgent()
+            page_source = requests.get(url, headers = {'User-Agent': ua.firefox}).text
             soup = BeautifulSoup(page_source, 'html.parser')
             a = soup.find('a', attrs = {'title': 'Última página'})
             onclick = a['onclick']
