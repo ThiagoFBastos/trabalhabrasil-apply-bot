@@ -10,29 +10,21 @@ class TrabalhaBrasilScraper:
         self._driver = driver
 
     def get_jobs_links_from_page_source(self, url):
-        try:
-            ua = UserAgent()
-            page_source = requests.get(url, headers = {'User-Agent': ua.firefox}).text
-            soup = BeautifulSoup(page_source, 'html.parser')
-            nav = soup.find('nav', attrs = {'id': 'jobs-wrapper'})
-            aCollection = nav.find_all('a')
-            links = [a['href'] for a in aCollection]
-            return links
-        except Exception as ex:
-            logging.error(f'error when extract links of jobs: {ex}')
-        return []
-
+        ua = UserAgent()
+        page_source = requests.get(url, headers = {'User-Agent': ua.firefox}).text
+        soup = BeautifulSoup(page_source, 'html.parser')
+        nav = soup.find('nav', attrs = {'id': 'jobs-wrapper'})
+        aCollection = nav.find_all('a')
+        links = [a['href'] for a in aCollection]
+        return links
+        
     def get_last_page_from_page_source(self, url):
-        try:
-            ua = UserAgent()
-            page_source = requests.get(url, headers = {'User-Agent': ua.firefox}).text
-            soup = BeautifulSoup(page_source, 'html.parser')
-            a = soup.find('a', attrs = {'title': 'Última página'})
-            onclick = a['onclick']
-            return int(onclick.replace(')', '(').split('(')[-2])
-        except Exception as ex:
-            logging.error(f'error when extract last page of search page: {ex}')
-        return 0
+        ua = UserAgent()
+        page_source = requests.get(url, headers = {'User-Agent': ua.firefox}).text
+        soup = BeautifulSoup(page_source, 'html.parser')
+        a = soup.find('a', attrs = {'title': 'Última página'})
+        onclick = a['onclick']
+        return int(onclick.replace(')', '(').split('(')[-2])
 
     def get_login_cpf_input(self):
         CPF_XPATH = "//*[@id = 'txtLoginCPF']"

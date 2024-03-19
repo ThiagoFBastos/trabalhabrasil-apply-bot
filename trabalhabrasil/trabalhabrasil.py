@@ -54,6 +54,11 @@ class TrabalhaBrasilBOT:
         options.add_argument('--disable-gpu')
         options.add_argument("--disable-dev-shm-usage")
         options.add_argument("--headless")
+        options.add_argument("--enable-logging")
+        options.add_argument("--single-process")
+        options.add_argument("--no-cache")
+        options.add_argument("--disable-popup-blocking")
+        options.add_argument("--disable-notifications")
 
         self._driver = webdriver.Firefox(service = FirefoxService(GeckoDriverManager().install()), options = options)
     
@@ -151,6 +156,6 @@ class TrabalhaBrasilBOT:
                     apply_button.click()
                     return True
         except Exception as ex:
-            logging.error(f'error when apply for job: {ex}')
+            logging.error(f'error when apply for job {url}: {ex}')
 
         return False
