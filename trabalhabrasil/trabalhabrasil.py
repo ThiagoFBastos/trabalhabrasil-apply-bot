@@ -24,11 +24,11 @@ class TrabalhaBrasilBOT:
 
         self._is_logged = False
 
-        self.removeCookies()
+        self._removeCookies()
 
         self.restart()
 
-    def removeCookies(self):
+    def _removeCookies(self):
         cookie_filename = f'cookies/{self._cpf}.pkl'
 
         if not os.path.isdir('cookies'):
@@ -66,16 +66,25 @@ class TrabalhaBrasilBOT:
 
         self.login()
 
-    def login(self):
+    def _loadCookies(self):
         cookie_filename = f'cookies/{self._cpf}.pkl'
-
         if os.path.isfile(cookie_filename):
             self._driver.get(self._BASE_URL)
             with open(cookie_filename, 'rb') as f:
                 cookies = pickle.load(f)
                 for cookie in cookies:
                     self._driver.add_cookie(cookie)
-        else:
+            return True
+        return False
+    
+    def _saveCookies(self):
+        cookie_filename = f'cookies/{self._cpf}.pkl'
+        cookies = self._driver.get_cookies()
+        with open(cookie_filename, 'wb') as f:
+            pickle.dump(cookies, f)
+
+    def login(self):
+        if not self._loadCookies():
             while True:
                 try:
                     if self._driver.current_url != self._LOGIN_URL:
@@ -96,10 +105,7 @@ class TrabalhaBrasilBOT:
                 except Exception as ex:
                     logging.error(f'error when trying to login: {ex}')
 
-            cookies = self._driver.get_cookies()
-
-            with open(cookie_filename, 'wb') as f:
-                pickle.dump(cookies, f)
+            self._saveCookies()
 
         self._is_logged = True
 

@@ -11,7 +11,10 @@ class TrabalhaBrasilScraper:
 
     def get_jobs_links_from_page_source(self, url):
         ua = UserAgent()
-        page_source = requests.get(url, headers = {'User-Agent': ua.firefox}).text
+        response = requests.get(url, headers = {'User-Agent': ua.firefox})
+        if response.status_code != 200:
+            raise RuntimeError(f'A requisição falhou e retornou status = {response.status_code}')
+        page_source = response.text
         soup = BeautifulSoup(page_source, 'html.parser')
         nav = soup.find('nav', attrs = {'id': 'jobs-wrapper'})
         if nav is None:
@@ -22,7 +25,10 @@ class TrabalhaBrasilScraper:
         
     def get_last_page_from_page_source(self, url):
         ua = UserAgent()
-        page_source = requests.get(url, headers = {'User-Agent': ua.firefox}).text
+        response = requests.get(url, headers = {'User-Agent': ua.firefox})
+        if response.status_code != 200:
+            raise RuntimeError(f'A requisição falhou e retornou status = {response.status_code}')
+        page_source = response.text
         soup = BeautifulSoup(page_source, 'html.parser')
         a = soup.find('a', attrs = {'title': 'Última página'})
         if a is None:
