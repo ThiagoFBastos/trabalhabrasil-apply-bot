@@ -30,5 +30,4 @@ Realiza candidaturas nos resultados de uma busca dado as keywords e a localizaç
 2. Rode o código bot.py
 
 ## Observações
-- É possível que o firefox use muita memória, então cuidado se o seu computador tiver pouca memória, eu reinicio o webdriver de tempos em tempos para diminuir o consumo de memória.
 - Pode ser que em algum momento o bot pare de funcionar já que a página web pode mudar e assim vai mudar a forma como o bot seleciona as tags, então se esse for o caso abra um issue.
