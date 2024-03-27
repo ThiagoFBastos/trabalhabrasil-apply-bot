@@ -103,7 +103,7 @@ class TrabalhaBrasilBOT:
 
                     break
                 except Exception as ex:
-                    logging.error(f'error when trying to login: {ex}')
+                    logging.error(f'erro ao tentar logar: {ex}')
 
             self._saveCookies()
 
@@ -129,7 +129,7 @@ class TrabalhaBrasilBOT:
         return self._scraper.get_last_page_from_page_source(url)
 
     def search(self, keywords, page, location = None):
-        print(f'searching on page {page}')
+        print(f'procurando na página {page}')
 
         params = {
             'pagina': page,
@@ -150,18 +150,18 @@ class TrabalhaBrasilBOT:
 
     def apply(self, url):
         try:
-            print(f'trying apply for {url}')
+            print(f'tentando aplicar para {url}')
 
             self._driver.get(url)
 
             apply_button = self._scraper.get_apply_button()
 
-            if apply_button is not None:
-                button_class = apply_button.get_attribute('class')
-                if 'disabled' not in button_class:
-                    apply_button.click()
-                    return True
+            button_class = apply_button.get_attribute('class')
+
+            if 'disabled' not in button_class:
+                apply_button.click()
+                return True
         except Exception as ex:
-            logging.error(f'error when apply for job {url}: {ex}')
+            logging.error(f'erro ao aplicar para o emprego {url}: {ex}')
 
         return False

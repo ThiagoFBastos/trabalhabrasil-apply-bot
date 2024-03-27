@@ -64,11 +64,9 @@ class TrabalhaBrasilScraper:
             raise RuntimeError('Tag não encontrada no método get_login_name_input')
 
     def get_apply_button(self):
-        BOX_ACTION_XPATH = "//div[@class = 'boxAction']"
-        APPLY_BUTTON_XPATH = "./button"
+        APPLY_BUTTON_XPATH = "//div[@class = 'boxAction']/button"
         try:
-            box_action = get_by_xpath(self._driver, BOX_ACTION_XPATH, 5)
-            return get_by_xpath_to_click(box_action, APPLY_BUTTON_XPATH, 5)
+            return get_by_xpath_to_click(self._driver, APPLY_BUTTON_XPATH, 5)
         except:
             raise RuntimeError('Tag não encontrada no método get_apply_button')
     

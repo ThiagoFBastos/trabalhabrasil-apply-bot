@@ -56,7 +56,7 @@ def main():
                 cur_time = time.time()
 
                 if cur_time - last_time >= MAX_SECONDS_RESTART:
-                    print('RESTART')
+                    print('reiniciando...')
                     bot.restart()
                     last_time = cur_time
                     
@@ -72,7 +72,7 @@ def main():
                     cur.execute("INSERT INTO history(id, url) VALUES (NULL, ?)", (job, ))
 
     except Exception as ex:
-        logging.error(f'error when running bot: {ex}')
+        logging.error(f'erro ao executar o bot: {ex}')
 
     finally:
         bot.quit()
